@@ -11,10 +11,12 @@ app.use(middleware.headers);
 // app.use(require("./middleware/validate-role"));
 
 app.use('/user', controllers.userController);
-app.use('/property', controllers.propertyController);
+app.use('/landlord', controllers.landlordController);
 app.use('/review', controllers.reviewController);
 
-dbConnection.authenticate()                       
+dbConnection.authenticate()
+    // .then(() => dbConnection.sync({force: true}))                          
+    // .then(() => dbConnection.sync({alter: true}))                          
     .then(() => dbConnection.sync())           
     .then(() => {
         app.listen(process.env.PORT, () => {
@@ -24,3 +26,4 @@ dbConnection.authenticate()
     .catch((err) => {
         console.log(`[Server]: Server crashed". Error ${err}`);
     })
+

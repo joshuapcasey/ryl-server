@@ -2,34 +2,35 @@ const {DataTypes} = require("sequelize");
 const db = require("../db");
 
 const Review = db.define("review", {            
-    ID:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    UserID:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    LandlordID:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    PropertyAddress:{
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    // PropertyManagement:{
-    //     type: DataTypes.STRING,
+
+    // UserID:{
+    //     type: DataTypes.INTEGER,
     //     allowNull: false
     // },
-    Comment:{
+    landlordID:{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    propertyAddress:{
         type: DataTypes.STRING,
         allowNull: true
     },
-    Rent:{
+    // propertyManagement:{
+    //     type: DataTypes.STRING,
+    //     allowNull: true
+    // },
+    comment:{
         type: DataTypes.STRING,
         allowNull: true
     },
+    rent:{
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
+    reviewerID: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
 });
 
 module.exports = Review   

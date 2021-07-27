@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const { UserModel } = require('../models');
+const { UserModel, LandlordModel, ReviewModel } = require('../models');
 const { UniqueConstraintError } = require('sequelize/lib/errors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-// const validateSession = require('../middleware/validate-session');
+const validateSession = require('../middleware/validate-session');
 // const validateRole = require('../middleware/validate-role');
 
 router.get("/practice", (req, res) => {
@@ -22,7 +22,6 @@ router.post('/register', async(req, res)=>{
         const User = await UserModel.create({
             firstName,
             lastName,
-            fullName: (firstName + ' ' + lastName),
             email,
             password: bcrypt.hashSync(password, 13),
             role: ('User')
@@ -97,6 +96,69 @@ router.post("/login", async (req, res) => {
         })
     }
 });
+
+/*
+============================
+    User Profile Get by ID
+============================
+*/
+
+router.get('/:id', async(req, res)=>{
+    const { id } = req.params;
+    try {
+        const thisUser = await UserModel.findOne({
+            where: { id: id},
+            include: [
+                {
+                    model: ReviewModel,
+                }
+            ]
+        });
+        if(thisUser !== null ){
+            res.status(200).json(thisUser)
+        } else {
+            res.status(404).json({ message: 'No such user exists.'})
+        }
+    } catch (err) {
+        res.status(500).json({ error: err })
+    }
+})
+
+/*
+============================
+    Get All Users
+============================
+*/
+
+router.get('userinfo', async (req, res) => {
+    try {
+        await UserModel.findall()({
+            include: [
+                {
+                    model: LandlordModel,
+                    include: [
+                        {
+                            model: ReviewModel
+                        }
+                    ]
+                }
+            ]
+        })
+        .then(
+            users => {
+                res.status(200).json({
+                    users: users
+                });
+            }
+        )
+    } catch (err) {
+        res.status(500).json({
+            error: `Failed to retrieve users: ${err}`
+        });
+    };
+});
+
+
 
 module.exports = router;
 

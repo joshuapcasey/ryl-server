@@ -1,5 +1,5 @@
 module.exports = {
     userController: require('./userController'),
-    propertyController: require('./propertyController'),
+    landlordController: require('./landlordController'),
     reviewController: require('./reviewController'),
 };
