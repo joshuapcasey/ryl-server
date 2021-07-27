@@ -1,10 +1,10 @@
 # Server ![RYL](logo.png)
 ---
 ### What is it?
-<!-- TODO This is the respoistory for the server-side of RYL. A social app geared towards physicians that focuses on warehousing all of their credentials in a single profile while connecting them with other practicioners and relevant publications. -->
+ This is the respoistory for the server-side of RYL. An app to empower tenants by allowing them to review landlords and share their first hand experiences with living at one of their residences.
 
 ### How does it work?
-It is a server with 3 tables for user information, properties, & reviews. The production application is deployed and housed with Heroku.
+It is a server with 3 tables for user information, landlords, & user reviews. The production application is deployed and housed with Heroku.
 
 Check it out here => [RYL App](https://jpc-RYL-client.herokuapp.com/home)
 
@@ -19,13 +19,13 @@ The backbone of the app is postgreSQL and express to translate JavaScript into l
 - "sequelize": "^6.6.4"
 
 ### Database Associations  -->
-<!-- TODO The server uses several DB associations to aggregate user and app information:
+The server uses two DB associations to aggregate user and app information:
 
-*UserModel.hasOne(CredentialModel); UserModel.hasMany(AssociationModel);*
+*UserModel.hasMany(ReviewModel)*
 
-*CredentialModel.belongsTo(UserModel); AssociationModel.hasMany(CredentialModel)*
+*ReviewModel.belongsTo(UserModel)*
 
-*AssociationModel.belongsTo(UserModel);* -->
+
 
 ### Security 
 The app utilizes jsonwebtoken and bcrypt to encrypt, transfer, and store  data. All passwords and sensitive user information are salted and hashed as to be hidden from the server. 
