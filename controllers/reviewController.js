@@ -4,13 +4,13 @@ const { UniqueConstraintError } = require('sequelize/lib/errors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const validateSession = require('../middleware/validate-session');
+// const validateRole = require('../middleware/validate-role');
 
 const chalk = require('chalk');
-// const validateRole = require('../middleware/validate-role');
 
 /*
 ===================================
-        TEST Route
+        * TEST Route
 ===================================
 */
 
@@ -20,12 +20,11 @@ router.get('/about', (req, res) => {
 
 /*
 ===================================
-        Add Review {CREATE}
+        * Add Review {CREATE}
 ===================================
 - Requires login
 */
 
-// ! Version 2
 router.post('/newReview/:landlordID', validateSession, async function (req, res) {
     const { propertyAddress, propertyManagement, comment, rent } = req.body.review;
 
@@ -61,7 +60,7 @@ router.post('/newReview/:landlordID', validateSession, async function (req, res)
 
 /*
 ===================================
-        Edit Review {Update}
+        * Edit Review {Update}
 ===================================
 - Requires login
 */
@@ -91,7 +90,7 @@ console.log(chalk.bgRedBright(`THIS IS THE USER: ${req.user.id}`))
 
 /*
 ===================================
-        Delete Review {Destroy}
+    * Delete Review {Destroy}
 ===================================
 - Requires login
 */
@@ -115,7 +114,7 @@ router.delete('/:reviewID', validateSession, async function (req, res) {
 
 /*
 ===========================================
-        Get All Review by User ID {Read}
+    * Get All Reviews by User ID {Read}
 ===========================================
 - Requires login
 */
@@ -137,6 +136,12 @@ router.get('/userreviews/:id', validateSession, async function(req, res){
     }
 });
 
+/*
+===========================================
+    * Get All Reviews by Landlord ID {Read}
+===========================================
+- Requires login
+*/
 router.get('/landlordreviews/:id', validateSession, async function(req, res){
     try{
         const foundReviews = await ReviewModel.findAll({
@@ -154,7 +159,12 @@ router.get('/landlordreviews/:id', validateSession, async function(req, res){
     }
 });
 
-
+/*
+===========================================
+    * Get All Reviews by All Users {Read}
+===========================================
+- Requires login
+*/
 router.get('/all', validateSession, async function(req, res){
     try{
         const allReviews = await ReviewModel.findAll()
@@ -168,4 +178,5 @@ router.get('/all', validateSession, async function(req, res){
         })
     }
 });
+
 module.exports = router;

@@ -12,7 +12,7 @@ router.get("/practice", (req, res) => {
 
 /*
 ============================
-    Register User
+        Register User
 ============================
 */
 
@@ -99,7 +99,7 @@ router.post("/login", async (req, res) => {
 
 /*
 ============================
-    User Profile Get by ID
+    ? User Profile Get by ID
 ============================
 */
 
@@ -123,42 +123,6 @@ router.get('/:id', async(req, res)=>{
         res.status(500).json({ error: err })
     }
 })
-
-/*
-============================
-    Get All Users
-============================
-*/
-
-router.get('userinfo', async (req, res) => {
-    try {
-        await UserModel.findall()({
-            include: [
-                {
-                    model: LandlordModel,
-                    include: [
-                        {
-                            model: ReviewModel
-                        }
-                    ]
-                }
-            ]
-        })
-        .then(
-            users => {
-                res.status(200).json({
-                    users: users
-                });
-            }
-        )
-    } catch (err) {
-        res.status(500).json({
-            error: `Failed to retrieve users: ${err}`
-        });
-    };
-});
-
-
 
 module.exports = router;
 
