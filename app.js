@@ -3,12 +3,11 @@ const Express = require('express');
 const app = Express();
 app.use(Express.json());
 const dbConnection = require('./db');
+
 const middleware = require('./middleware');
 const controllers = require("./controllers");
 
 app.use(middleware.headers);
-// app.use(require("./middleware/validate-session"));
-// app.use(require("./middleware/validate-role"));
 
 app.use('/user', controllers.userController);
 app.use('/landlord', controllers.landlordController);

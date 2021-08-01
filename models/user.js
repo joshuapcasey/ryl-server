@@ -25,10 +25,10 @@ const User = db.define("user", {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    // role: {
-    //     type: DataTypes.BOOLEAN, 
-    //     allowNull: false,
-    // },
+    admin: {
+        type: DataTypes.BOOLEAN, 
+        allowNull: false,
+    },
 });
 
 module.exports = User   

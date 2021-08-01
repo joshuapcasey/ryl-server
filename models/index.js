@@ -1,7 +1,6 @@
 const UserModel = require('./user');
 const ReviewModel = require('./review');
 const LandlordModel = require('./landlord');
-const Review = require('./review');
 
 UserModel.hasMany(ReviewModel, {
     as: 'userReviews',
@@ -9,9 +8,9 @@ UserModel.hasMany(ReviewModel, {
     foreignKey: 'reviewerID'
 });
 
-
 ReviewModel.belongsTo(UserModel);
 
+module.exports = { UserModel, LandlordModel, ReviewModel }
 
 // UserModel.hasMany(LandlordModel, {
 //     foreignKey: 'owner'
@@ -24,5 +23,3 @@ ReviewModel.belongsTo(UserModel);
 // });
 // ReviewModel.belongsToMany(UserModel);
 // LandlordModel.belongsToMany(ReviewModel);
-
-module.exports = { UserModel, LandlordModel, ReviewModel }

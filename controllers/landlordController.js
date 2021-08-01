@@ -155,7 +155,7 @@ router.delete('/:landlordID', validateSession, async function (req, res) {
 ===================================
 - Requires login
 */
-router.delete('/:gigId/admin', validateRole, async(req, res)=>{
+router.delete('/:landlordID/admin', validateRole, async(req, res)=>{
     const { landlordID } = req.params
     try {
         const deletedLandlord = await LandlordModel.destroy({
@@ -172,4 +172,3 @@ router.delete('/:gigId/admin', validateRole, async(req, res)=>{
 
 module.exports = router;
 
-module.exports = router;
