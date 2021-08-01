@@ -12,7 +12,7 @@ router.get("/practice", (req, res) => {
 
 /*
 ============================
-        Register User
+    *    Register User
 ============================
 */
 
@@ -49,7 +49,7 @@ router.post('/register', async(req, res)=>{
 
 /*
 ============================
-        Register User
+    *    Register ADMIN
 ============================
 */
 
@@ -86,7 +86,7 @@ router.post('/register/admin', async(req, res)=>{
 
 /*
 ============================
-        Login User
+    *    Login User
 ============================
 */
 
