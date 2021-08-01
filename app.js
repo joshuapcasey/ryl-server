@@ -4,9 +4,11 @@ const app = Express();
 app.use(Express.json());
 const dbConnection = require('./db');
 
+const cors = require("cors");
 const middleware = require('./middleware');
 const controllers = require("./controllers");
 
+app.use(cors());
 app.use(middleware.headers);
 
 app.use('/user', controllers.userController);

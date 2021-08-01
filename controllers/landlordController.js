@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const validateSession = require('../middleware/validate-session');
 const validateRole = require('../middleware/validate-role');
-
+const chalk = require('chalk');
 /*
 =================================
     Add Landlord (CREATE)
@@ -89,41 +89,7 @@ router.get('/all', validateSession, async function(req, res){
     }
 });
 
-/*
-===================================
-        ! Edit Landlord {Update}
-===================================
-- Requires login
-*/
-router.put('/:landlordID', validateSession, async function (req, res) {
 
-    console.log(chalk.bgRedBright(`THIS IS THE landlord: ${req.landlord.id}`))
-    
-        const { propertyManagement, rating } = req.body.landlord;
-        const { landlordID } = req.params;
-        const { reviewerID } = req.user.id;
-        try {
-            const editLandlord = await LandlordModel.update({
-                propertyManagement, 
-                rating, 
-                // userID: req.user.id
-            }, 
-                // { where: {id: landlordID } }
-                // { where: { id: landlordID, reviewerID: req.user.id } }
-                { where: { id: landlordID, reviewerID: reviewerID } }
-
-                ); 
-            res.status(200).json({ 
-                message: 'Landlord successfully updated!',
-                editLandlord
-        });
-            } catch (err) {
-                res.status(500).json({
-                    msg: `Server error: ${err}`
-                })
-            }
-        
-    });
 
 /*
 ===================================
@@ -148,6 +114,39 @@ router.delete('/:landlordID', validateSession, async function (req, res) {
         })
     }
 })
+/*
+===================================
+        * ADMIN Edit Landlord {Update}
+===================================
+- Requires login
+*/
+router.put('/:landlordID/admin', validateRole, async function (req, res) {
+
+    console.log(chalk.bgRedBright(`THIS IS THE landlord: ${req.user.id}`))
+    
+        const { propertyManagement, rating } = req.body.landlord;
+        const { landlordID } = req.params;
+        // const { reviewerID } = req.user.id;
+        try {
+            const editLandlord = await LandlordModel.update({
+                propertyManagement, 
+                rating, 
+            }, 
+                { where: { id: landlordID } }
+
+                ); 
+            res.status(200).json({ 
+                message: 'Landlord successfully updated!',
+                editLandlord
+        });
+            } catch (err) {
+                res.status(500).json({
+                    msg: `Server error: ${err}`
+                })
+            }
+        
+    });
+
 
 /*
 ===================================
