@@ -6,7 +6,7 @@
 ### How does it work?
 It is a server with 3 tables for user information, landlords, & user reviews. The production application is deployed and housed with Heroku.
 
-Check it out here => [RYL App](https://jpc-RYL-client.herokuapp.com/home)
+Check it out here => [RYL App](https://ryl-client.herokuapp.com/)
 
 ### Technologies Incorporated
 The backbone of the app is postgreSQL and express to translate JavaScript into language the server can read and interact with. It also utilizes the following dependencies: 
